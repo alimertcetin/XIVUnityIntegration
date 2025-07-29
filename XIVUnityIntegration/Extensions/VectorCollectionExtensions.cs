@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace XIV.UnityEngineIntegration.UnityEngineIntegration
+namespace XIVUnityEngineIntegration.Extensions
 {
     public static class VectorCollectionExtensions
 	{

@@ -1,12 +1,10 @@
 {
-    "name": "XIV.Core.Editor",
+    "name": "XIV.UnityIntegration",
     "rootNamespace": "",
     "references": [
         "GUID:0e970f033b54bdd4a8c070cfc1b349a5"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

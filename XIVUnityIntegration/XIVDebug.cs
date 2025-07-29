@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using UnityEditor;
+using XIV.Core.Utils;
 
 namespace XIV.UnityEngineIntegration
 {
+    using UnityEngine;
+    using System.Collections.Generic;
     using XIV.Core.Collections;
     using XIV.Core.DataStructures;
     using XIV.Core.XIVMath;
@@ -111,7 +114,7 @@ namespace XIV.UnityEngineIntegration
             for (int i = 0; i < detail; i++)
             {
                 var angle = i * (TAU / detail);
-                var axis = Vec3.RotateTowards(Vec3.forward, Vec3.back, angle, 180f);
+                var axis = Vector3.RotateTowards(Vector3.forward, Vector3.back, angle, 180f);
                 DrawCircle(position, radius, axis, XIVColor, circleDetail, duration);
             }
         }
@@ -130,12 +133,12 @@ namespace XIV.UnityEngineIntegration
         public static void DrawCircle(Vec3 position, float radius, Vec3 axis, XIVColor XIVColor, int detail, float duration = 0)
         {
             var rotation = Quaternion.FromToRotation(Vec3.forward, axis);
-            var startPoint = position + rotation * Vec3.right * radius;
+            var startPoint = (Vector3)position + rotation * Vec3.right * radius;
             var p1 = startPoint;
             for (int i = 1; i <= detail; i++)
             {
                 float angle = i * (360f / detail);
-                var p2 = position + rotation * Quaternion.AngleAxis(angle, Vec3.forward) * Vec3.right * radius;
+                var p2 = (Vector3)position + rotation * Quaternion.AngleAxis(angle, Vec3.forward) * Vec3.right * radius;
                 Debug.DrawLine(p1, p2, XIVColor, duration);
                 p1 = p2;
             }
@@ -194,13 +197,13 @@ namespace XIV.UnityEngineIntegration
         }
 
         // Rectangle
-        public static void DrawRectangle(Vec3 center, Vec3 halfExtends, Quaternion orientation, float duration = 0f)
+        public static void DrawRectangle(Vector3 center, Vector3 halfExtends, Quaternion orientation, float duration = 0f)
         {
             halfExtends.z = 0f;
             var bottomLeft = center - halfExtends;
             var topRight = center + halfExtends;
-            var topLeft = new Vec3(bottomLeft.x, topRight.y);
-            var bottomRight = new Vec3(topRight.x, bottomLeft.y);
+            var topLeft = new Vector3(bottomLeft.x, topRight.y);
+            var bottomRight = new Vector3(topRight.x, bottomLeft.y);
             bottomLeft = center + orientation * (bottomLeft - center);
             topRight = center + orientation * (topRight - center);
             topLeft = center + orientation * (topLeft - center);
@@ -241,7 +244,7 @@ namespace XIV.UnityEngineIntegration
                     ref var textData = ref textDatas[i];
                     var style = new GUIStyle();
                     style.fontSize = textData.size;
-                    style.normal.textXIVColor = textData.XIVColor;
+                    style.normal.textColor = textData.XIVColor;
                     Handles.Label(textData.position, textData.text, style);
                     if (textData.timer.Update(Time.deltaTime))
                     {
@@ -264,7 +267,7 @@ namespace XIV.UnityEngineIntegration
             {
                 var style = new GUIStyle();
                 style.fontSize = size;
-                style.normal.textXIVColor = XIVColor;
+                style.normal.textColor = XIVColor;
                 Handles.Label(position, text, style);
                 return;
             }

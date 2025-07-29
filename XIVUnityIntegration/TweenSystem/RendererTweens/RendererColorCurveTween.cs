@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using XIV.Core.TweenSystem.Drivers;
 using XIV.Core.XIVMath;
+using XIVUnityEngineIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem.RendererTweens
 {
@@ -8,8 +9,8 @@ namespace XIV.Core.TweenSystem.RendererTweens
     {
         protected override void OnUpdate(float easedTime)
         {
-            var color = BezierMath4D.GetPoint(startValue[0], startValue[1], startValue[2], startValue[3], easedTime);
-            component.material.color = color;
+            var color = BezierMath4D.GetPoint(startValue[0].ToVec4(), startValue[1].ToVec4(), startValue[2].ToVec4(), startValue[3].ToVec4(), easedTime);
+            component.material.color = color.ToVector4();
         }
     }
 }

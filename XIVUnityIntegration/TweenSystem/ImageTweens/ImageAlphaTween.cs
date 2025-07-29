@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using XIV.Core.Extensions;
 using XIV.Core.TweenSystem.Drivers;
+using XIVUnityEngineIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem.ImageTweens
 {
