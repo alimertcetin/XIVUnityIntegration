@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using XIV.Core.DataStructures;
 
 namespace XIVUnityEngineIntegration.Extensions
 {
@@ -74,6 +75,18 @@ namespace XIVUnityEngineIntegration.Extensions
 			{
 				vector3Array[i] = new Vector3(vector2Collection[i].x, 0f, vector2Collection[i].y);
 			}
+		}
+
+		public static Vector3[] ToVector3Arr<T>(this T vector3Collection) where T : IList<Vec3>
+		{
+			var arr = new Vector3[vector3Collection.Count];
+			for (int i = 0; i < vector3Collection.Count; i++)
+			{
+				var vec3 = vector3Collection[i];
+				arr[i] = new Vector3(vec3.x, vec3.y, vec3.z);
+			}
+
+			return arr;
 		}
 	}
 }
