@@ -197,22 +197,45 @@ namespace XIV.UnityEngineIntegration
         }
 
         // Rectangle
-        public static void DrawRectangle(Vector3 center, Vector3 halfExtends, Quaternion orientation, float duration = 0f)
+        // public static void DrawRectangle(Vector3 center, Vector3 halfExtends, Quaternion orientation, float duration = 0f)
+        // {
+        //     halfExtends.z = 0f;
+        //     var bottomLeft = center - halfExtends;
+        //     var topRight = center + halfExtends;
+        //     var topLeft = new Vector3(bottomLeft.x, topRight.y);
+        //     var bottomRight = new Vector3(topRight.x, bottomLeft.y);
+        //     bottomLeft = center + orientation * (bottomLeft - center);
+        //     topRight = center + orientation * (topRight - center);
+        //     topLeft = center + orientation * (topLeft - center);
+        //     bottomRight = center + orientation * (bottomRight - center);
+        //     
+        //     Debug.DrawLine(bottomLeft, bottomRight, XIVColor.red, duration);
+        //     Debug.DrawLine(bottomRight, topRight, XIVColor.green, duration);
+        //     Debug.DrawLine(topRight, topLeft, XIVColor.red, duration);
+        //     Debug.DrawLine(topLeft, bottomLeft, XIVColor.green, duration);
+        // }
+        
+        public static void DrawRectangle(Vector3 center, Vector3 halfExtents, Quaternion orientation, float duration = 0f)
         {
-            halfExtends.z = 0f;
-            var bottomLeft = center - halfExtends;
-            var topRight = center + halfExtends;
-            var topLeft = new Vector3(bottomLeft.x, topRight.y);
-            var bottomRight = new Vector3(topRight.x, bottomLeft.y);
-            bottomLeft = center + orientation * (bottomLeft - center);
-            topRight = center + orientation * (topRight - center);
-            topLeft = center + orientation * (topLeft - center);
-            bottomRight = center + orientation * (bottomRight - center);
-            
-            Debug.DrawLine(bottomLeft, bottomRight, XIVColor.red, duration);
-            Debug.DrawLine(bottomRight, topRight, XIVColor.green, duration);
-            Debug.DrawLine(topRight, topLeft, XIVColor.red, duration);
-            Debug.DrawLine(topLeft, bottomLeft, XIVColor.green, duration);
+            halfExtents.z = 0f; // We are working in 2D plane
+
+            // Define local corners around origin (center-relative)
+            Vector3 localBL = new Vector3(-halfExtents.x, -halfExtents.y, 0f);
+            Vector3 localBR = new Vector3( halfExtents.x, -halfExtents.y, 0f);
+            Vector3 localTR = new Vector3( halfExtents.x,  halfExtents.y, 0f);
+            Vector3 localTL = new Vector3(-halfExtents.x,  halfExtents.y, 0f);
+
+            // Rotate and translate to world space
+            Vector3 worldBL = center + orientation * localBL;
+            Vector3 worldBR = center + orientation * localBR;
+            Vector3 worldTR = center + orientation * localTR;
+            Vector3 worldTL = center + orientation * localTL;
+
+            // Draw rectangle edges
+            Debug.DrawLine(worldBL, worldBR, XIVColor.red, duration);
+            Debug.DrawLine(worldBR, worldTR, XIVColor.green, duration);
+            Debug.DrawLine(worldTR, worldTL, XIVColor.red, duration);
+            Debug.DrawLine(worldTL, worldBL, XIVColor.green, duration);
         }
 
         public static void DrawRectangle(Vec3 center, Vec3 halfExtends, float duration = 0f)
