@@ -2,7 +2,7 @@
     "name": "XIV.Core.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:45f830fc942d07c408be2852341e073a",
+        "GUID:432e6b92b0382c848b5b98c9d6c2bd11",
         "GUID:821c3dd50180e2a4da68da9d39fd07fd"
     ],
     "includePlatforms": [
