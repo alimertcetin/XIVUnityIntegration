@@ -20,5 +20,15 @@ namespace XIV.Core.TweenSystem
         {
             return XIVTweenBuilder.GetTween(component);
         }
+
+        /// <summary>
+        /// Rents <typeparamref name="T"/> from <seealso cref="XIV.PoolSystem.XIVPoolSystem"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T CustomTween<T>(this Component component) where T : ITween
+        {
+            return XIV.PoolSystem.XIVPoolSystem.GetItem<T>();
+        }
     }
 }
