@@ -229,6 +229,12 @@ namespace XIV.Core.TweenSystem
             if (TryGetComponent<Renderer>(out var renderer) == false) CastError(typeof(Renderer));
             return AddTween(Get<RendererColorCurveTween>().Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
         }
+
+        public XIVTweenBuilder ScaleBounceOnce()
+        {
+            var currScale = component.transform.localScale;
+            return Scale(currScale, currScale * 0.9f, 0.2f, EasingFunction.SmoothStop3, true);
+        }
         
         /// <summary>
         /// Gets <typeparamref name="T"/> tween from pool
