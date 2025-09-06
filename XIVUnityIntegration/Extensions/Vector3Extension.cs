@@ -43,5 +43,10 @@ namespace XIVUnityEngineIntegration.Extensions
         {
             return new Vector3(point.x, point.y, value);
         }
+
+        public static Vector3 Abs(this Vector3 vec3)
+        {
+            return new Vector3(XIVMathf.Abs(vec3.x), XIVMathf.Abs(vec3.y), XIVMathf.Abs(vec3.z));
+        }
     }
 }
