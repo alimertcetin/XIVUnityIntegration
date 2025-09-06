@@ -103,6 +103,33 @@ namespace XIV.UnityEngineIntegration
             DrawBezier(curve[0], curve[1], curve[2], curve[3], t, duration);
         }
         
+        public static void DrawBezier(XIVMemory<Vec3> curve, float t, float duration)
+        {
+            DrawBezier(curve[0], curve[1], curve[2], curve[3], t, duration);
+        }
+
+        public static void DrawBezierDetailed(XIVMemory<Vec3> curve, int detail = 100, float duration = 0f)
+        {
+            var p0 = BezierMath.GetCurveData(curve, 0f);
+            for (int i = 1; i <= detail; i++)
+            {
+                float t = (float)i / detail;
+                var p1 = BezierMath.GetCurveData(curve, t);
+                DrawLine(p0.point, p1.point, XIVColor.magenta, duration);
+                DrawLine(p0.point, p0.point + (p0.right * 0.25f), XIVColor.red, duration);
+                DrawLine(p0.point, p0.point + (p0.forward * 0.25f), XIVColor.blue, duration);
+                DrawLine(p0.point, p0.point + (p0.normal * 0.25f), XIVColor.yellow, duration);
+                DrawSphere(p0.point, 0.01f, XIVColor.red, duration);
+                p0 = p1;
+            }
+
+            var curveLen = SplineMath.GetLength(curve);
+            if (Application.isPlaying)
+            {
+                DrawTextOnLine(curve[1], curve[^2], curveLen.ToString(), 100, XIVColor.blue, duration);
+            }
+        }
+        
         // Spline
         public static void DrawSpline(IList<Vec3> points, XIVColor XIVColor, int detail, float duration = 0f)
         {
