@@ -73,12 +73,27 @@ namespace XIV.UnityEngineIntegration
             DrawBezier(curve[0], curve[1], curve[2], curve[3], XIVColor, detail, duration);
         }
         
+        public static void DrawBezier(XIVMemory<Vec3> curve, XIVColor XIVColor, int detail, float duration = 0f)
+        {
+            DrawBezier(curve[0], curve[1], curve[2], curve[3], XIVColor, detail, duration);
+        }
+        
         public static void DrawBezier(Vec3[] curve, XIVColor XIVColor, float duration = 0f)
         {
             DrawBezier(curve[0], curve[1], curve[2], curve[3], XIVColor, duration);
         }
         
+        public static void DrawBezier(XIVMemory<Vec3> curve, XIVColor XIVColor, float duration = 0f)
+        {
+            DrawBezier(curve[0], curve[1], curve[2], curve[3], XIVColor, duration);
+        }
+        
         public static void DrawBezier(Vec3[] curve, float duration = 0f)
+        {
+            DrawBezier(curve[0], curve[1], curve[2], curve[3], duration);
+        }
+        
+        public static void DrawBezier(XIVMemory<Vec3> curve, float duration = 0f)
         {
             DrawBezier(curve[0], curve[1], curve[2], curve[3], duration);
         }
