@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using XIV.Core.DataStructures;
 using XIV.Core.Extensions;
 
 namespace XIV.UnityEngineIntegration.XIVEditor.Utils
@@ -49,9 +50,10 @@ namespace XIV.UnityEngineIntegration.XIVEditor.Utils
             SetProperty(fieldName, instance, fieldValue, DefaultFieldBindingFlags);
         }
 
-        public static MethodInfo[] GetMethodsHasAttribute<TAttribute>(Type type) where TAttribute : Attribute
+        public static XIVMemory<MethodInfo> GetMethodsHasAttribute<TAttribute>(Type type) where TAttribute : Attribute
         {
-            return type.GetMethods(DefaultFieldBindingFlags).RemoveIf((m) => m.GetCustomAttribute<TAttribute>() == null);
+            var methods = type.GetMethods(DefaultFieldBindingFlags);
+            return methods.FilterBy(methods.Length, p => p.GetCustomAttribute<TAttribute>() != null);
         }
 
         public static MethodInfo[] GetMethods(Type type)
