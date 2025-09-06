@@ -74,6 +74,7 @@ namespace XIV.Core.TweenSystem
                         XIVPoolSystem.ReleaseItem(timeline);
                     }
 
+                    // TODO : This doesn't look right
                     if (timelines.Count == 0)
                     {
 #if UNITY_EDITOR
@@ -157,18 +158,23 @@ namespace XIV.Core.TweenSystem
 
             var timelines = tweenTimelines[index];
             int timelineCount = timelines.Count;
-            for (int i = 0; i < timelineCount; i++)
+            if (forceComplete)
             {
-                TweenTimeline timeline = timelines[i];
-                if (forceComplete == false)
+                for (int i = 0; i < timelineCount; i++)
                 {
+                    TweenTimeline timeline = timelines[i];
+                    timeline.ForceComplete();
+                    timeline.Clear();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < timelineCount; i++)
+                {
+                    TweenTimeline timeline = timelines[i];
                     timeline.Cancel();
                     timeline.Clear();
-                    continue;
                 }
-
-                timeline.ForceComplete();
-                // timeline.Clear();
             }
             
             timelines.Clear();
