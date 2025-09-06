@@ -179,6 +179,11 @@ namespace XIV.Core.TweenSystem
         {
             return AddTween(Get<FollowCurveVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
         }
+        
+        public XIVTweenBuilder FollowCurveAndRotation(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(Get<FollowCurveAndRotationVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
+        }
 
         // Image
         public XIVTweenBuilder ImageFill(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
