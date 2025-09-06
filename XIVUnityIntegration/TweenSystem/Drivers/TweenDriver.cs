@@ -16,6 +16,11 @@ namespace XIV.Core.TweenSystem.Drivers
             return this;
         }
 
+        protected override bool CanUpdate(float easedTime)
+        {
+            return component;
+        }
+
         protected override void OnComplete()
         {
             component = default;
@@ -48,7 +53,8 @@ namespace XIV.Core.TweenSystem.Drivers
             this.loopCount = loopCount;
             return this;
         }
-
+        
+        protected abstract bool CanUpdate(float easedTime);
         protected abstract void OnUpdate(float easedTime);
         protected abstract void OnComplete();
         protected abstract void OnCancel();
@@ -71,18 +77,27 @@ namespace XIV.Core.TweenSystem.Drivers
 
             var easedTime = easingFunction.Invoke(0f, 1f, isPingPong ? timer.NormalizedTimePingPong : timer.NormalizedTime);
             
-            // Thats how you should not solve your problems.
-            // TODO : Throws exception when object is destroyed
-            try
+            if (CanUpdate(easedTime))
             {
                 OnUpdate(easedTime);
             }
-            catch (Exception e)
+            else
             {
-                Debug.LogWarning(e);
                 timer.Update(float.MaxValue);
                 loopCount = 0;
             }
+            // Thats how you should not solve your problems.
+            // TODO : Throws exception when object is destroyed
+            // try
+            // {
+            //     OnUpdate(easedTime);
+            // }
+            // catch (Exception e)
+            // {
+            //     Debug.LogWarning(e);
+            //     timer.Update(float.MaxValue);
+            //     loopCount = 0;
+            // }
 
             if (timer.IsDone == false) return;
             
