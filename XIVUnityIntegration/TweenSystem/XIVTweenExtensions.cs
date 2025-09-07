@@ -18,7 +18,7 @@ namespace XIV.Core.TweenSystem
 
         public static XIVTweenBuilder XIVTween(this Component component)
         {
-            return XIVTweenBuilder.GetTween(component);
+            return XIVTweenBuilder.GetBuilder(component);
         }
 
         /// <summary>

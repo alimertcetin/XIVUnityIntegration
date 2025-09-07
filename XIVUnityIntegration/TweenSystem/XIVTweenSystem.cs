@@ -8,88 +8,94 @@ namespace XIV.Core.TweenSystem
     {
         class TweenHelperMono : MonoBehaviour
         {
-            
 #if UNITY_EDITOR
             [System.Serializable]
-            public struct TweenD
+            public struct TweenDebugRelationData
             {
                 public GameObject go;
-                public List<TweenData> tweenDatas;
+                public List<TweenDebugData> tweenDebugDatas;
             }
 
             [System.Serializable]
-            public struct TweenData
+            public struct TweenDebugData
             {
                 public string name;
                 public string time;
             }
             
-            public List<TweenD> XIVTweenGameObjects = new List<TweenD>();
-            public List<TweenD> history = new List<TweenD>();
+            public List<TweenDebugRelationData> tweenDebugRelations = new List<TweenDebugRelationData>();
+            public List<TweenDebugRelationData> tweenDebugRelationHistory = new List<TweenDebugRelationData>();
 #endif
             void Update()
             {
-                int count = XIVTweenSystem.tweenTimelines.Count;
-                for (int i = count - 1; i >= 0; i--)
+                int tweenTimelineListsCount = XIVTweenSystem.tweenTimelineLists.Count;
+                for (int i = tweenTimelineListsCount - 1; i >= 0; i--)
                 {
-                    List<TweenTimeline> timelines = XIVTweenSystem.tweenTimelines[i];
+                    List<TweenTimeline> timelines = XIVTweenSystem.tweenTimelineLists[i];
 #if UNITY_EDITOR
+                    // Get the index of TweenRelationData by looking up the instance id of GameObjects
                     int GetIdx()
                     {
-                        for (var idx = 0; idx < XIVTweenGameObjects.Count; idx++)
+                        var count = tweenDebugRelations.Count;
+                        for (var idx = 0; idx < count; idx++)
                         {
-                            var tweenD = XIVTweenGameObjects[idx];
-                            if (tweenD.go.GetInstanceID() == instanceIDs[i]) return idx;
+                            if (tweenDebugRelations[idx].go.GetInstanceID() == instanceIDs[i]) return idx;
                         }
 
                         return -1;
                     }
 
-                    var xivTweenDebugIdx = GetIdx();
-                    foreach (var tweenTimeline in timelines)
+                    var tweenRelationIdx = GetIdx();
+                    if (tweenRelationIdx == -1)
                     {
-                        if (xivTweenDebugIdx != -1) continue;
-                        TweenD tweenD = new TweenD()
+                        // loop through the timelines and add tweens if they are not present in the relation list
+                        foreach (var tweenTimeline in timelines)
                         {
-                            go = (GameObject)UnityEditor.EditorUtility.InstanceIDToObject(instanceIDs[i]),
-                            tweenDatas = new List<TweenData>(),
-                        };
-                        foreach (ITween t in tweenTimeline.Tweens)
-                        {
-                            tweenD.tweenDatas.Add(new TweenData()
+                            // Create a relation
+                            TweenDebugRelationData tweenDebugRelationData = new TweenDebugRelationData()
                             {
-                                name = t.GetType().ToString().Split('.')[^1],
-                                time = System.DateTime.Now.ToString("hh:mm:ss:ffffff tt", System.Globalization.CultureInfo.InvariantCulture),
-                            });
+                                go = (GameObject)UnityEditor.EditorUtility.InstanceIDToObject(instanceIDs[i]),
+                                tweenDebugDatas = new List<TweenDebugData>(),
+                            };
+                            // add tweens to relation list which are present in the timeline
+                            foreach (ITween t in tweenTimeline.Tweens)
+                            {
+                                tweenDebugRelationData.tweenDebugDatas.Add(new TweenDebugData()
+                                {
+                                    name = t.GetType().ToString().Split('.')[^1],
+                                    time = System.DateTime.Now.ToString("hh:mm:ss:ffffff tt", System.Globalization.CultureInfo.InvariantCulture),
+                                });
+                            }
+                            tweenDebugRelations.Add(tweenDebugRelationData);
                         }
-                        XIVTweenGameObjects.Add(tweenD);
                     }
 #endif
                     TweenTimeline timeline = timelines[0];
                     timeline.Update();
                     if (timeline.IsDone())
                     {
+                        // MAYBE : Reverse the Timeline list when the timeline is added to it so that removing timelines from the list would be much more performant
                         timelines.RemoveAt(0);
                         timeline.Clear();
                         XIVPoolSystem.ReleaseItem(timeline);
                     }
 
-                    // TODO : This doesn't look right
+                    // There is no timeline left in the list
                     if (timelines.Count == 0)
                     {
 #if UNITY_EDITOR
-                        int idx = history.FindIndex((p) => p.go == XIVTweenGameObjects[xivTweenDebugIdx].go);
-                        if (idx != -1)
+                        int historyListIdx = tweenDebugRelationHistory.FindIndex((p) => p.go == tweenDebugRelations[tweenRelationIdx].go);
+                        if (historyListIdx != -1)
                         {
-                           history[idx].tweenDatas.AddRange(XIVTweenGameObjects[xivTweenDebugIdx].tweenDatas);
+                           tweenDebugRelationHistory[historyListIdx].tweenDebugDatas.AddRange(tweenDebugRelations[tweenRelationIdx].tweenDebugDatas);
                         }
                         else
                         {
-                            history.Add(XIVTweenGameObjects[xivTweenDebugIdx]);
+                            tweenDebugRelationHistory.Add(tweenDebugRelations[tweenRelationIdx]);
                         }
 
-                        if (history.Count > 10) history.RemoveAt(10);
-                        XIVTweenGameObjects.RemoveAt(xivTweenDebugIdx);
+                        if (tweenDebugRelationHistory.Count > 10) tweenDebugRelationHistory.RemoveAt(10);
+                        tweenDebugRelations.RemoveAt(tweenRelationIdx);
 #endif
                         XIVTweenSystem.Remove(instanceIDs[i]);
                         timelines.Clear();
@@ -105,7 +111,7 @@ namespace XIV.Core.TweenSystem
             }
         }
 
-        static readonly List<List<TweenTimeline>> tweenTimelines = new(8);
+        static readonly List<List<TweenTimeline>> tweenTimelineLists = new(8);
         static readonly List<int> instanceIDs = new(8);
         static TweenHelperMono tweenHelperMono;
 
@@ -156,7 +162,7 @@ namespace XIV.Core.TweenSystem
             var index = instanceIDs.IndexOf(instanceID);
             if (index == -1) return;
 
-            var timelines = tweenTimelines[index];
+            var timelines = tweenTimelineLists[index];
             int timelineCount = timelines.Count;
             if (forceComplete)
             {
@@ -192,7 +198,7 @@ namespace XIV.Core.TweenSystem
             var index = instanceIDs.IndexOf(instanceID);
             if (index != -1)
             {
-                return tweenTimelines[index];
+                return tweenTimelineLists[index];
             }
 
             var timelines = XIVPoolSystem.GetItem<List<TweenTimeline>>();
@@ -203,20 +209,20 @@ namespace XIV.Core.TweenSystem
         static void Add(int instanceID, List<TweenTimeline> timelines)
         {
             instanceIDs.Add(instanceID);
-            tweenTimelines.Add(timelines);
+            tweenTimelineLists.Add(timelines);
         }
 
         static void Remove(int instanceID)
         {
             var index = instanceIDs.IndexOf(instanceID);
-            tweenTimelines.RemoveAt(index);
+            tweenTimelineLists.RemoveAt(index);
             instanceIDs.RemoveAt(index);
         }
 
         static void Clear()
         {
             instanceIDs.Clear();
-            tweenTimelines.Clear();
+            tweenTimelineLists.Clear();
         }
     }
 }

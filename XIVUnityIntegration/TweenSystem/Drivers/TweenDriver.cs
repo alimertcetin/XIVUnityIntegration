@@ -86,19 +86,7 @@ namespace XIV.Core.TweenSystem.Drivers
                 timer.Update(float.MaxValue);
                 loopCount = 0;
             }
-            // Thats how you should not solve your problems.
-            // TODO : Throws exception when object is destroyed
-            // try
-            // {
-            //     OnUpdate(easedTime);
-            // }
-            // catch (Exception e)
-            // {
-            //     Debug.LogWarning(e);
-            //     timer.Update(float.MaxValue);
-            //     loopCount = 0;
-            // }
-
+            
             if (timer.IsDone == false) return;
             
             if (loopCount > 0)
