@@ -19,7 +19,7 @@ namespace XIV.UnityEngineIntegration.XIVEditor.CodeGeneration
                 var fieldValue = FormatStringFieldValue(tags[i]);
                 generator.AddField(fieldName, fieldValue, "string", "const");
             }
-
+            generator.AddMemberArray("All", tags, "string[]", "static readonly");
 
             return generator.EndClass();
         }
