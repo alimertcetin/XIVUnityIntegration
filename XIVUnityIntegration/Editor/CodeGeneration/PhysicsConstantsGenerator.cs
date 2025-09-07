@@ -1,3 +1,4 @@
+using System;
 using UnityEditorInternal;
 using XIV.Core.Utils;
 
@@ -13,16 +14,17 @@ namespace XIV.UnityEngineIntegration.XIVEditor.CodeGeneration
             generator.AddUsing(nameof(UnityEngine));
 
             var layers = InternalEditorUtility.layers;
-
-            for (int i = 0; i < layers.Length; i++)
+            var layersLength = layers.Length;
+            for (int i = 0; i < layersLength; i++)
             {
                 var fieldName = CleanFieldName(layers[i]);
                 var fieldValue = FormatStringFieldValue(layers[i]);
                 generator.AddField(fieldName, fieldValue, "string", "const");
                 generator.AddField(fieldName + "Layer", ToLayerMask(fieldValue), "int", "static readonly");
+
+                layers[i] = fieldName; // we are using this later, reuse the same array
             }
-
-
+            generator.AddMemberArray("All", layers, "string[]", "static readonly");
             return generator.EndClass();
         }
 
