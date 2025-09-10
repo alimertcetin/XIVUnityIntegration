@@ -33,8 +33,8 @@ namespace XIV.UnityEngineIntegration.XIVEditor
         
         public const string DEBUG_MENU = BASE_MENU + "/Debug";
         public const string PROFILER_MENU = DEBUG_MENU + "/Profiler";
-        public const string ENABLE_PROFILDER_SYBOLS = PROFILER_MENU + "/Enable Profiler Symbols";
-        public const string DISABLE_PROFILDER_SYBOLS = PROFILER_MENU + "/Disable Profiler Symbols";
+        public const string ENABLE_PROFILER_SYMBOLS = PROFILER_MENU + "/Enable Profiler Symbols";
+        public const string DISABLE_PROFILER_SYMBOLS = PROFILER_MENU + "/Disable Profiler Symbols";
 
         [MenuItem(UPDATE_ALL_CONSTANTS_MENU)]
         public static void UpdateAllConstants()
@@ -152,10 +152,10 @@ namespace XIV.UnityEngineIntegration.XIVEditor
 
         }
         
-        [MenuItem(ENABLE_PROFILDER_SYBOLS)]
+        [MenuItem(ENABLE_PROFILER_SYMBOLS)]
         static void EnableProfilerSymbols() => ProfilerDefines.EnableProfilerSymbols();
 
-        [MenuItem(DISABLE_PROFILDER_SYBOLS)]
+        [MenuItem(DISABLE_PROFILER_SYMBOLS)]
         static void DisableProfilerSymbols() => ProfilerDefines.DisableProfilerSymbols();
     }
 

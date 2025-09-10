@@ -8,8 +8,8 @@ namespace XIV.UnityEngineIntegration.XIVEditor
     [InitializeOnLoad]
     public static class ProfilerDefines
     {
-        public static readonly string PROFILER_ENABLED = "PROFILER_ENABLED";
-        public static readonly string DEEP_PROFILING_ENABLED = "DEEP_PROFILING_ENABLED";
+        public const string PROFILER_ENABLED = "PROFILER_ENABLED";
+        public const string DEEP_PROFILING_ENABLED = "DEEP_PROFILING_ENABLED";
 
         static bool enableProfilerSymbols
         {
