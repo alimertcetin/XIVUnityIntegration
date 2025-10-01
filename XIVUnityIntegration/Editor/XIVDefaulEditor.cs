@@ -1,8 +1,9 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using XIV.Core;
-using XIV.UnityEngineIntegration.XIVEditor.Utils;
+using XIV.Core.Extensions;
+using XIV.Core.Utils;
 using Object = UnityEngine.Object;
 
 namespace XIV.UnityEngineIntegration.XIVEditor
@@ -17,21 +18,16 @@ namespace XIV.UnityEngineIntegration.XIVEditor
 
             base.OnInspectorGUI();
             
-            var methods = ReflectionUtils.GetMethodsHasAttribute<ButtonAttribute>(target.GetType());
-            int length = methods.Length;
+            var members = target.GetType().XIVGetMembersHasAttribute<XIVAttribute>();
+            int length = members.Length;
             for (var i = 0; i < length; i++)
             {
-                var method = methods[i];
-                var buttonAttribute = method.GetCustomAttribute<ButtonAttribute>();
-                var buttonText = string.IsNullOrWhiteSpace(buttonAttribute.label) ? method.Name : buttonAttribute.label;
-                if (GUILayout.Button(buttonText))
+                var member = members[i];
+                foreach (var customAttribute in member.GetCustomAttributes<XIVAttribute>())
                 {
-                    if (buttonAttribute.playModeOnly && Application.isPlaying == false)
-                    {
-                        Debug.LogWarning( $"\"{buttonText}\" is not allowed in editor mode");
-                        continue;
-                    }
-                    method.Invoke(target, new object[method.GetParameters().Length]);
+                    customAttribute.StartDraw(target, member.Name);
+                    customAttribute.Draw(target, member.Name);
+                    customAttribute.EndDraw(target, member.Name);
                 }
             }
         }
