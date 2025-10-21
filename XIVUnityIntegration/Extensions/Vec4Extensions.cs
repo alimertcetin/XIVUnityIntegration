@@ -3,7 +3,7 @@ using XIV.Core.DataStructures;
 
 namespace XIVUnityEngineIntegration.Extensions
 {
-    public static class Vec4Extension
+    public static class Vec4Extensions
     {
         public static Vector4 ToVector4(this Vec4 v)
         {

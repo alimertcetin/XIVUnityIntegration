@@ -3,7 +3,7 @@ using XIV.Core.XIVMath;
 
 namespace XIVUnityEngineIntegration.Extensions
 {
-    public static class Vector3Extension
+    public static class Vector3Extensions
     {
         public static Vector3 RotateAroundAxis(this Vector3 point, Vector3 axis, float angleDeg, Vector3 pivot)
         {
