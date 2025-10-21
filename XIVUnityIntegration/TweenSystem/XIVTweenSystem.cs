@@ -84,7 +84,23 @@ namespace XIV.Core.TweenSystem
                     if (timelines.Count == 0)
                     {
 #if UNITY_EDITOR
-                        int historyListIdx = tweenDebugRelationHistory.FindIndex((p) => p.go == tweenDebugRelations[tweenRelationIdx].go);
+                        // ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+                        // int historyListIdx = tweenDebugRelationHistory.FindIndex((p) => p.go == tweenDebugRelations[tweenRelationIdx].go);
+                        int FindIdx(int index)
+                        {
+                            var target = tweenDebugRelations[index].go;
+                            int len = tweenDebugRelationHistory.Count;
+                            for (int j = 0; j < len; j++)
+                            {
+                                var go = tweenDebugRelationHistory[j].go;
+                                if (go == target)
+                                {
+                                    return j;
+                                }
+                            }
+                            return -1;
+                        }
+                        int historyListIdx = FindIdx(tweenRelationIdx);
                         if (historyListIdx != -1)
                         {
                            tweenDebugRelationHistory[historyListIdx].tweenDebugDatas.AddRange(tweenDebugRelations[tweenRelationIdx].tweenDebugDatas);
