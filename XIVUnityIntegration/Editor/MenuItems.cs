@@ -33,8 +33,13 @@ namespace XIV.UnityEngineIntegration.XIVEditor
         
         public const string DEBUG_MENU = BASE_MENU + "/Debug";
         public const string PROFILER_MENU = DEBUG_MENU + "/Profiler";
+        public const string XIVTween_MENU = DEBUG_MENU + "/XIVTween";
+        
         public const string ENABLE_PROFILER_SYMBOLS = PROFILER_MENU + "/Enable Profiler Symbols";
         public const string DISABLE_PROFILER_SYMBOLS = PROFILER_MENU + "/Disable Profiler Symbols";
+        
+        public const string ENABLE_XIVTweenSystem_SYMBOLS = XIVTween_MENU + "/Enable XIVTweenSystem Symbols";
+        public const string DISABLE_XIVTweenSystem_SYMBOLS = XIVTween_MENU + "/Disable XIVTweenSystem Symbols";
 
         [MenuItem(UPDATE_ALL_CONSTANTS_MENU)]
         public static void UpdateAllConstants()
@@ -157,6 +162,12 @@ namespace XIV.UnityEngineIntegration.XIVEditor
 
         [MenuItem(DISABLE_PROFILER_SYMBOLS)]
         static void DisableProfilerSymbols() => ProfilerDefines.DisableProfilerSymbols();
+
+        [MenuItem(ENABLE_XIVTweenSystem_SYMBOLS)]
+        static void EnableXIVTweenSystemSymbols() => ProfilerDefines.AddDefines("XIV_TweenSystem_DEBUG");
+        
+        [MenuItem(DISABLE_XIVTweenSystem_SYMBOLS)]
+        static void DisableXIVTweenSystemSymbols() => ProfilerDefines.RemoveDefines("XIV_TweenSystem_DEBUG");
     }
 
 }

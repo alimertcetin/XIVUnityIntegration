@@ -8,7 +8,7 @@ namespace XIV.Core.TweenSystem
     {
         class TweenHelperMono : MonoBehaviour
         {
-#if UNITY_EDITOR
+#if XIV_TweenSystem_DEBUG
             [System.Serializable]
             public struct TweenDebugRelationData
             {
@@ -32,7 +32,7 @@ namespace XIV.Core.TweenSystem
                 for (int i = tweenTimelineListsCount - 1; i >= 0; i--)
                 {
                     List<TweenTimeline> timelines = XIVTweenSystem.tweenTimelineLists[i];
-#if UNITY_EDITOR
+#if XIV_TweenSystem_DEBUG
                     // Get the index of TweenRelationData by looking up the instance id of GameObjects
                     int GetIdx()
                     {
@@ -68,6 +68,8 @@ namespace XIV.Core.TweenSystem
                             }
                             tweenDebugRelations.Add(tweenDebugRelationData);
                         }
+
+                        tweenRelationIdx = GetIdx();
                     }
 #endif
                     TweenTimeline timeline = timelines[0];
@@ -83,7 +85,7 @@ namespace XIV.Core.TweenSystem
                     // There is no timeline left in the list
                     if (timelines.Count == 0)
                     {
-#if UNITY_EDITOR
+#if XIV_TweenSystem_DEBUG
                         // ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
                         // int historyListIdx = tweenDebugRelationHistory.FindIndex((p) => p.go == tweenDebugRelations[tweenRelationIdx].go);
                         int FindIdx(int index)
