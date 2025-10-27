@@ -7,8 +7,8 @@ namespace XIV.UnityEngineIntegration
     [AttributeUsage(AttributeTargets.Method)]
     public class ButtonAttribute : XIVAttribute
     {
-        public string label;
-        public bool playModeOnly;
+        readonly bool playModeOnly;
+        string label;
 
         public ButtonAttribute() : this("")
         {
@@ -20,7 +20,7 @@ namespace XIV.UnityEngineIntegration
             
         }
 
-        public ButtonAttribute(string label, bool playModeOnly = false)
+        public ButtonAttribute(string label, bool playModeOnly = false) : base()
         {
             this.label = label;
             this.playModeOnly = playModeOnly;

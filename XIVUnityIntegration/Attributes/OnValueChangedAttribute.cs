@@ -39,7 +39,7 @@ namespace XIV.UnityEngineIntegration
             {
                 if (obj == null) return default(T);
 
-                var type = typeof(T);
+                var type = obj.GetType();
                 // Value types or strings are immutable and safe to use as-is
                 if (type.IsValueType || type == typeof(string)) return obj;
 
@@ -68,12 +68,12 @@ namespace XIV.UnityEngineIntegration
                 return (T)clone;
             }
         }
-        
-        public string functionToCall;
-        public bool playModeOnly;
+
         static Dictionary<string, ValueTracker<object>> trackers = new();
+        string functionToCall;
+        readonly bool playModeOnly;
         
-        public OnValueChangedAttribute(string functionToCall, bool playModeOnly = false)
+        public OnValueChangedAttribute(string functionToCall, bool playModeOnly = false) : base()
         {
             this.functionToCall = functionToCall;
             this.playModeOnly = playModeOnly;
@@ -97,7 +97,7 @@ namespace XIV.UnityEngineIntegration
             {
                 if (this.playModeOnly && Application.isPlaying == false)
                 {
-                    Debug.LogWarning( $"\"{functionToCall}\" is not allowed in editor mode");
+                    Debug.LogWarning( $"{nameof(OnValueChangedAttribute)}: \"{functionToCall}\" is not allowed in editor mode");
                     return;
                 }
                 sender.GetType().XIVGetMethods().XIVFirstOrDefault(p => p.Name == functionToCall).Invoke(sender, Array.Empty<object>());
