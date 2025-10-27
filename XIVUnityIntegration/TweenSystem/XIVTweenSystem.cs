@@ -88,6 +88,8 @@ namespace XIV.Core.TweenSystem
                         // int historyListIdx = tweenDebugRelationHistory.FindIndex((p) => p.go == tweenDebugRelations[tweenRelationIdx].go);
                         int FindIdx(int index)
                         {
+                            if (index == -1) return -1;
+                            
                             var target = tweenDebugRelations[index].go;
                             int len = tweenDebugRelationHistory.Count;
                             for (int j = 0; j < len; j++)
