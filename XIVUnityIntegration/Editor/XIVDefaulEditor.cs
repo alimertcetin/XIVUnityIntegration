@@ -79,6 +79,11 @@ namespace XIV.UnityEngineIntegration.XIVEditor
             for (var i = 0; i < length; i++)
             {
                 var member = members[i];
+                // rigidbody property throws exception.
+                // MeshFilter.mesh logs error - Not allowed to access MeshFilter.mesh on Prefab object. Use MeshFilter.sharedMesh instead
+                // So we will just skip any UnityEngine types
+                if (member.DeclaringType.Assembly.GetName().Name.Contains(nameof(UnityEngine))) continue;
+                
                 foreach (var customAttribute in member.GetCustomAttributes<XIVAttribute>())
                 {
                     if (attributes.TryGetValue(sender, out var list))
@@ -90,16 +95,7 @@ namespace XIV.UnityEngineIntegration.XIVEditor
                     attributes.Add(sender, new List<AttributeData>() { CreateAttributeData(member, customAttribute) });
                 }
 
-                object otherSender;
-                // rigidbody property throws exception.
-                try
-                {
-                    otherSender = sender.GetType().XIVGetFieldOrPropertyValue(member.Name, sender);
-                }
-                catch (Exception e)
-                {
-                    continue;
-                }
+                var otherSender = sender.GetType().XIVGetFieldOrPropertyValue(member.Name, sender);
 
                 if (otherSender == null) continue;
                 var others = member.MemberType == MemberTypes.Field ? ((FieldInfo)member).FieldType.XIVGetMembersHasAttribute<XIVAttribute>() : member.MemberType == MemberTypes.Property ? ((PropertyInfo)member).PropertyType.XIVGetMembersHasAttribute<XIVAttribute>() : default;
