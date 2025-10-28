@@ -169,6 +169,19 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<RendererColorCurveTween>().Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
         }
 
+        // Renderer
+        public XIVTweenBuilder SpriteRendererColor(Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<SpriteRenderer>(out var renderer) == false) ThrowCastError(typeof(SpriteRenderer));
+            return AddTween(Get<SpriteRendererColorTween>().Set(renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        public XIVTweenBuilder SpriteRendererColorCurve(XIVMemory<Color> colors, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<SpriteRenderer>(out var renderer) == false) ThrowCastError(typeof(SpriteRenderer));
+            return AddTween(Get<SpriteRendererColorCurveTween>().Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
+        }
+
         public XIVTweenBuilder ScaleBounceOnce()
         {
             var currScale = component.transform.localScale;
