@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace XIV.UnityEngineIntegration.XIVEditor.Utils
 {
-    public static class EditorUtils
+    public static class XIVEditorUnityEditorUtils
     {
         public static GameObject CreatePrefab(GameObject obj, float distanceToSceneView = 5f)
         {

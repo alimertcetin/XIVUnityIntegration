@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace XIV.UnityEngineIntegration.XIVEditor.Utils
 {
-    public static class AssetUtils
+    public static class XIVEditorAssetUtils
     {
         /// <summary>Load asset files via their base class</summary>
         /// <typeparam name="TAsset">Asset Type</typeparam>
@@ -60,7 +60,7 @@ namespace XIV.UnityEngineIntegration.XIVEditor.Utils
         
         public static T GetScriptableObject<T>(string scriptableObjectName) where T : ScriptableObject
         {
-            List<T> scriptableObjects = AssetUtils.LoadAssetsOfType<T>("Assets/ScriptableObjects");
+            List<T> scriptableObjects = XIVEditorAssetUtils.LoadAssetsOfType<T>("Assets/ScriptableObjects");
             scriptableObjectName = scriptableObjectName.ToLower();
             foreach (T scriptableObject in scriptableObjects)
             {

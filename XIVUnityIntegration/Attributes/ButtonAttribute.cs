@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using XIV.Core.DataStructures;
 using XIV.Core.Extensions;
 
 namespace XIV.UnityEngineIntegration
@@ -7,6 +8,7 @@ namespace XIV.UnityEngineIntegration
     [AttributeUsage(AttributeTargets.Method)]
     public class ButtonAttribute : XIVAttribute
     {
+        static GUIStyle guiStyle;
         readonly bool playModeOnly;
         string label;
 
@@ -28,19 +30,23 @@ namespace XIV.UnityEngineIntegration
 
         public override void StartDraw(object sender, string memberName)
         {
+            guiStyle ??= new GUIStyle(GUI.skin.button) { richText = true };
         }
 
         public override void Draw(object sender, string memberName)
         {
-            var method = sender.GetType().XIVGetMethodByName(memberName);
+            var type = sender.GetType();
+            var method = type.XIVGetMethodByName(memberName);
             var buttonText = string.IsNullOrWhiteSpace(this.label) ? method.Name : this.label;
-            if (GUILayout.Button(buttonText))
+            
+            if (GUILayout.Button(type.Name.XIVToColor(XIVColor.cyan) + ": " + buttonText, guiStyle))
             {
                 if (this.playModeOnly && Application.isPlaying == false)
                 {
-                    Debug.LogWarning( $"\"{buttonText}\" is not allowed in editor mode");
+                    Debug.LogWarning($"\"{buttonText}\" is not allowed in editor mode");
                     return;
                 }
+
                 method.Invoke(sender, Array.Empty<object>());
             }
         }
