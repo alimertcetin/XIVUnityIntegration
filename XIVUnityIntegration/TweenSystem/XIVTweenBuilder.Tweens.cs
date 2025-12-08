@@ -187,5 +187,17 @@ namespace XIV.Core.TweenSystem
             var currScale = component.transform.localScale;
             return Scale(currScale, currScale * 0.9f, 0.2f, EasingFunction.SmoothStop3, true);
         }
+
+        public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<Renderer>(out var renderer) == false) ThrowCastError(typeof(Renderer));
+            return AddTween(Get<MaterialPropertyBlockColorTween>().Set(mpb, propId, renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<Renderer>(out var renderer) == false) ThrowCastError(typeof(Renderer));
+            return AddTween(Get<MaterialPropertyBlockFloatTween>().Set(mpb, propId, renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
     }
 }
