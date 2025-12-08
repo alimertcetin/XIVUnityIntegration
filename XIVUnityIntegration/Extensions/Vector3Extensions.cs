@@ -8,7 +8,7 @@ namespace XIVUnityEngineIntegration.Extensions
         public static Vector3 RotateAroundAxis(this Vector3 point, Vector3 axis, float angleDeg, Vector3 pivot)
         {
             var translatedPoint = point - pivot;
-            var rotation = Quaternion.AngleAxis(angleDeg * XIVMathf.Rad2Deg, axis.normalized);
+            var rotation = Quaternion.AngleAxis(angleDeg, axis.normalized);
             var rotatedTranslatedPoint = rotation * translatedPoint;
             var rotatedPoint = rotatedTranslatedPoint + pivot;
             return rotatedPoint;
