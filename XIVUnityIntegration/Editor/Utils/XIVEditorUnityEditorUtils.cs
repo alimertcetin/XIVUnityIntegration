@@ -1,9 +1,7 @@
-using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using XIV.Core;
 using Object = UnityEngine.Object;
 
 namespace XIV.UnityEngineIntegration.XIVEditor.Utils
