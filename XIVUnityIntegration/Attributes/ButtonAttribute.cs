@@ -10,7 +10,7 @@ namespace XIV.UnityEngineIntegration
     {
         static GUIStyle guiStyle;
         readonly bool playModeOnly;
-        string label;
+        readonly string label;
 
         public ButtonAttribute() : this("")
         {
