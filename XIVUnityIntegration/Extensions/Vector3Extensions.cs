@@ -48,5 +48,10 @@ namespace XIVUnityEngineIntegration.Extensions
         {
             return new Vector3(XIVMathf.Abs(vec3.x), XIVMathf.Abs(vec3.y), XIVMathf.Abs(vec3.z));
         }
+
+        public static bool IsNaN(this Vector3 vec3)
+        {
+            return float.IsNaN(vec3.x) || float.IsNaN(vec3.y) || float.IsNaN(vec3.z);
+        }
     }
 }

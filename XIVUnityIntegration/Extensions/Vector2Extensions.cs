@@ -19,5 +19,10 @@ namespace XIVUnityEngineIntegration.Extensions
         {
             return new Vector2(XIVMathf.Abs(vec2.x), XIVMathf.Abs(vec2.y));
         }
+
+        public static bool IsNaN(this Vector2 vec2)
+        {
+            return float.IsNaN(vec2.x) || float.IsNaN(vec2.y);
+        }
     }
 }
