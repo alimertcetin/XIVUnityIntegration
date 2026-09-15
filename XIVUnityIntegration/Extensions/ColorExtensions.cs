@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace XIVUnityEngineIntegration.Extensions
+namespace XIV.UnityEngineIntegration.Extensions
 {
     public static class ColorExtensions
     {

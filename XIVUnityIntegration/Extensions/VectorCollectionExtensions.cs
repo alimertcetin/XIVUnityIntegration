@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XIV.Core.DataStructures;
 
-namespace XIVUnityEngineIntegration.Extensions
+namespace XIV.UnityEngineIntegration.Extensions
 {
     public static class VectorCollectionExtensions
 	{
