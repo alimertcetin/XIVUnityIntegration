@@ -1,7 +1,7 @@
 using UnityEditorInternal;
 using XIV.Core.Utils;
 
-namespace XIV.UnityEngineIntegration.XIVEditor.CodeGeneration
+namespace XIV.UnityIntegration.XIVEditor.CodeGeneration
 {
     public static class TagConstantsGenerator
     {

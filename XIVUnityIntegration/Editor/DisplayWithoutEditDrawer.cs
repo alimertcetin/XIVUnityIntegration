@@ -2,7 +2,7 @@
 using UnityEngine;
 using XIV.Core;
 
-namespace XIV.UnityEngineIntegration.XIVEditor
+namespace XIV.UnityIntegration.XIVEditor
 {
     [CustomPropertyDrawer(typeof(DisplayWithoutEdit))]
     public class DisplayWithoutEditDrawer : PropertyDrawer

@@ -1,7 +1,7 @@
 using UnityEngine;
 using XIV.Core.DataStructures;
 
-namespace XIV.UnityEngineIntegration.Extensions
+namespace XIV.UnityIntegration.Extensions
 {
     public static class Vec4Extensions
     {

@@ -3,7 +3,7 @@ using System;
 using UnityEditor;
 using UnityEditorInternal;
 
-namespace XIV.UnityEngineIntegration.XIVEditor
+namespace XIV.UnityIntegration.XIVEditor
 {
     [InitializeOnLoad]
     public static class ProfilerDefines

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using XIV.UnityEngineIntegration.XIVEditor.CodeGeneration;
+using XIV.UnityIntegration.XIVEditor.CodeGeneration;
 
-namespace XIV.UnityEngineIntegration.XIVEditor
+namespace XIV.UnityIntegration.XIVEditor
 {
     public static class MenuItems
     {

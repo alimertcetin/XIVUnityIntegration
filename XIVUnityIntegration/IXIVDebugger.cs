@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using XIV.Core.DataStructures;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     public interface IXIVDebugger
     {

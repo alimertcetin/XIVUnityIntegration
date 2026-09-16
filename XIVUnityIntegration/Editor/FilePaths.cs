@@ -1,4 +1,4 @@
-﻿namespace XIV.UnityEngineIntegration.XIVEditor
+﻿namespace XIV.UnityIntegration.XIVEditor
 {
     public static class FilePaths
     {

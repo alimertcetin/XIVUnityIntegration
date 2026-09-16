@@ -2,7 +2,7 @@ using UnityEngine;
 using XIV.Core.DataStructures;
 using XIV.Core.XIVMath;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     public static class CamFrustumUtils
     {

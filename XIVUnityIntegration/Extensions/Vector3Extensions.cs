@@ -1,7 +1,7 @@
 using UnityEngine;
 using XIV.Core.XIVMath;
 
-namespace XIV.UnityEngineIntegration.Extensions
+namespace XIV.UnityIntegration.Extensions
 {
     public static class Vector3Extensions
     {

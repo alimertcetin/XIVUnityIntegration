@@ -2,7 +2,7 @@
 using XIV.Core.DataStructures;
 using XIV.Core.TweenSystem.Drivers;
 using XIV.Core.XIVMath;
-using XIVUnityEngineIntegration.Extensions;
+using XIV.UnityIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem.TransformTweens
 {

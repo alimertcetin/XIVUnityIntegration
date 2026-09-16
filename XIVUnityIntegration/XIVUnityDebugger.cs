@@ -5,9 +5,9 @@ using XIV.Core.Collections;
 using XIV.Core.DataStructures;
 using XIV.Core.Utils;
 using XIV.Core.XIVMath;
-using XIVUnityEngineIntegration.Extensions;
+using XIV.UnityIntegration.Extensions;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     public class XIVUnityDebugger : IXIVDebugger
     {

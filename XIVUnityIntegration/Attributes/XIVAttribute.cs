@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     public abstract class XIVAttribute : Attribute
     {

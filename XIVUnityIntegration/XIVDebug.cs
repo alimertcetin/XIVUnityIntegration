@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
 using XIV.Core.Utils;
-using XIVUnityEngineIntegration.Extensions;
+using XIV.UnityIntegration.Extensions;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     using UnityEngine;
     using System.Collections.Generic;

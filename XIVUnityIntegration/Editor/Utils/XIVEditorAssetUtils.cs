@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace XIV.UnityEngineIntegration.XIVEditor.Utils
+namespace XIV.UnityIntegration.XIVEditor.Utils
 {
     public static class XIVEditorAssetUtils
     {

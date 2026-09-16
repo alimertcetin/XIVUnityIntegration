@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using XIV.Core.TweenSystem.Drivers;
-using XIV.UnityEngineIntegration.Extensions;
+using XIV.UnityIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem.TransformTweens
 {

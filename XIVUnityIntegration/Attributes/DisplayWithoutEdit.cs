@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     /// <summary>
     /// Allow to display an attribute in inspector without allow editing

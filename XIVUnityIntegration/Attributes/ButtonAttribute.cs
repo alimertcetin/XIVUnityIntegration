@@ -3,7 +3,7 @@ using UnityEngine;
 using XIV.Core.DataStructures;
 using XIV.Core.Extensions;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class ButtonAttribute : XIVAttribute

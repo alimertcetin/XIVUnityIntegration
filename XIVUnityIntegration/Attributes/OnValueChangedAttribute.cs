@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using XIV.Core.Extensions;
 
-namespace XIV.UnityEngineIntegration
+namespace XIV.UnityIntegration
 {
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field)]
     public class OnValueChangedAttribute : XIVAttribute

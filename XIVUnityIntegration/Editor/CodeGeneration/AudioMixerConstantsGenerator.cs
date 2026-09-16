@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine.Audio;
 using XIV.Core.Utils;
 
-namespace XIV.UnityEngineIntegration.XIVEditor.CodeGeneration
+namespace XIV.UnityIntegration.XIVEditor.CodeGeneration
 {
     public static class AudioMixerConstantsGenerator
     {

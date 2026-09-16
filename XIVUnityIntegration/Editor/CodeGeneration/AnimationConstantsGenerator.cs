@@ -3,7 +3,7 @@ using UnityEditor.Animations;
 using UnityEngine;
 using XIV.Core.Utils;
 
-namespace XIV.UnityEngineIntegration.XIVEditor.CodeGeneration
+namespace XIV.UnityIntegration.XIVEditor.CodeGeneration
 {
     public static class AnimationConstantsGenerator
     {

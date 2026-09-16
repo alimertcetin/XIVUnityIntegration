@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using XIV.Core.Extensions;
 
-namespace XIV.UnityEngineIntegration.XIVEditor
+namespace XIV.UnityIntegration.XIVEditor
 {
     [CustomEditor(typeof(UnityEngine.Object), true, isFallback = true), CanEditMultipleObjects]
     public sealed class XIVDefaultEditor : Editor
