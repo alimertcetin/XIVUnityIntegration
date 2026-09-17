@@ -80,8 +80,8 @@ namespace XIV.Core.Tools.ColliderConverter
         {
             Rigidbody2DParams params2D;
             params2D.mass = rigidbody.mass;
-            params2D.drag = rigidbody.drag;
-            params2D.angularDrag = rigidbody.angularDrag;
+            params2D.drag = rigidbody.linearDamping;
+            params2D.angularDrag = rigidbody.angularDamping;
             params2D.gravityScale = rigidbody.useGravity ? 1 : 0;
             params2D.isKinematic = rigidbody.isKinematic;
             params2D.interpolation = rigidbody.interpolation;
@@ -95,8 +95,8 @@ namespace XIV.Core.Tools.ColliderConverter
         {
             Rigidbody2DParams params2D;
             params2D.mass = rigidbody2D.mass;
-            params2D.drag = rigidbody2D.drag;
-            params2D.angularDrag = rigidbody2D.angularDrag;
+            params2D.drag = rigidbody2D.linearDamping;
+            params2D.angularDrag = rigidbody2D.angularDamping;
             params2D.gravityScale = rigidbody2D.gravityScale;
             params2D.isKinematic = rigidbody2D.isKinematic;
             params2D.interpolation = (RigidbodyInterpolation)(int)rigidbody2D.interpolation;
@@ -183,8 +183,8 @@ namespace XIV.Core.Tools.ColliderConverter
         public static void SetRigidbodyProperties(Rigidbody2D rigidbody, Rigidbody2DParams params2D)
         {
             rigidbody.mass = params2D.mass;
-            rigidbody.drag = params2D.drag;
-            rigidbody.angularDrag = params2D.angularDrag;
+            rigidbody.linearDamping = params2D.drag;
+            rigidbody.angularDamping = params2D.angularDrag;
             rigidbody.gravityScale = params2D.gravityScale;
             rigidbody.isKinematic = params2D.isKinematic;
             rigidbody.interpolation = (RigidbodyInterpolation2D)(int)params2D.interpolation;
@@ -194,8 +194,8 @@ namespace XIV.Core.Tools.ColliderConverter
         public static void SetRigidbodyProperties(Rigidbody rigidbody, Rigidbody2DParams params2D)
         {
             rigidbody.mass = params2D.mass;
-            rigidbody.drag = params2D.drag;
-            rigidbody.angularDrag = params2D.angularDrag;
+            rigidbody.linearDamping = params2D.drag;
+            rigidbody.angularDamping = params2D.angularDrag;
             rigidbody.useGravity = params2D.gravityScale > 0;
             rigidbody.isKinematic = params2D.isKinematic;
             rigidbody.interpolation = params2D.interpolation;
