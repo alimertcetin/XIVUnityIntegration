@@ -7,6 +7,7 @@ namespace XIV.Core.TweenSystem
 {
     public sealed partial class XIVTweenBuilder
     {
+        // limitation: Can't build multiple tweens at the same time
         static readonly XIVTweenBuilder instance = new XIVTweenBuilder();
         static readonly List<TweenTimeline> timelineBuffer = new List<TweenTimeline>(4);
 

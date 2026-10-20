@@ -149,6 +149,24 @@ namespace XIV.Core.TweenSystem
             if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
             return AddTween(Get<RectTransformMoveTween>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
+        
+        public XIVTweenBuilder RectTransformLocalMove(Vector3 from, Vector3 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
+            return AddTween(Get<RectTransformLocalMoveTween>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+        
+        public XIVTweenBuilder RectTransformSizeDelta(Vector2 from, Vector2 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
+            return AddTween(Get<RectTransformSizeDelta>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+        
+        public XIVTweenBuilder RectTransformAnchoredPosition3D(Vector3 from, Vector3 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
+            return AddTween(Get<RectTransformAnchoredPosition3D>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
 
         public XIVTweenBuilder ImageColorCurve(XIVMemory<Color> colors, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
