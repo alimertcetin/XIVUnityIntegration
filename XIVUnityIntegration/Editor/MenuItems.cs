@@ -33,13 +33,19 @@ namespace XIV.UnityIntegration.XIVEditor
         
         public const string DEBUG_MENU = BASE_MENU + "/Debug";
         public const string PROFILER_MENU = DEBUG_MENU + "/Profiler";
-        public const string XIVTween_MENU = DEBUG_MENU + "/XIVTween";
+        public const string SYMBOLS_MENU = DEBUG_MENU + "/Symbols";
         
         public const string ENABLE_PROFILER_SYMBOLS = PROFILER_MENU + "/Enable Profiler Symbols";
         public const string DISABLE_PROFILER_SYMBOLS = PROFILER_MENU + "/Disable Profiler Symbols";
         
-        public const string ENABLE_XIVTweenSystem_SYMBOLS = XIVTween_MENU + "/Enable XIVTweenSystem Symbols";
-        public const string DISABLE_XIVTweenSystem_SYMBOLS = XIVTween_MENU + "/Disable XIVTweenSystem Symbols";
+        public const string XIVDebug_MENU = SYMBOLS_MENU + "/XIV_DEBUG";
+        public const string XIV_TweenSystem_DEBUG_MENU = SYMBOLS_MENU + "/XIV_TweenSystem_DEBUG";
+        
+        public const string ENABLE_XIV_DEBUG_SYMBOL = XIVDebug_MENU + "/Enable XIV_DEBUG";
+        public const string DISABLE_XIV_DEBUG_SYMBOL = XIVDebug_MENU + "/Disable XIV_DEBUG";
+        
+        public const string ENABLE_XIVTweenSystem_SYMBOL = XIV_TweenSystem_DEBUG_MENU + "/Enable XIV_TweenSystem_DEBUG";
+        public const string DISABLE_XIVTweenSystem_SYMBOL = XIV_TweenSystem_DEBUG_MENU + "/Disable XIV_TweenSystem_DEBUG";
 
         [MenuItem(UPDATE_ALL_CONSTANTS_MENU)]
         public static void UpdateAllConstants()
@@ -157,16 +163,22 @@ namespace XIV.UnityIntegration.XIVEditor
 
         }
         
-        [MenuItem(ENABLE_PROFILER_SYMBOLS)]
+        [MenuItem(ENABLE_PROFILER_SYMBOLS, priority = 0)]
         static void EnableProfilerSymbols() => ProfilerDefines.EnableProfilerSymbols();
 
-        [MenuItem(DISABLE_PROFILER_SYMBOLS)]
+        [MenuItem(DISABLE_PROFILER_SYMBOLS, priority = 1)]
         static void DisableProfilerSymbols() => ProfilerDefines.DisableProfilerSymbols();
+        
+        [MenuItem(ENABLE_XIV_DEBUG_SYMBOL, priority = 10)]
+        static void EnableXIVDebugSymbols() => ProfilerDefines.AddDefines("XIV_DEBUG");
+        
+        [MenuItem(DISABLE_XIV_DEBUG_SYMBOL, priority = 11)]
+        static void DisableXIVDebugSymbols() => ProfilerDefines.RemoveDefines("XIV_DEBUG");
 
-        [MenuItem(ENABLE_XIVTweenSystem_SYMBOLS)]
+        [MenuItem(ENABLE_XIVTweenSystem_SYMBOL, priority = 20)]
         static void EnableXIVTweenSystemSymbols() => ProfilerDefines.AddDefines("XIV_TweenSystem_DEBUG");
         
-        [MenuItem(DISABLE_XIVTweenSystem_SYMBOLS)]
+        [MenuItem(DISABLE_XIVTweenSystem_SYMBOL, priority = 21)]
         static void DisableXIVTweenSystemSymbols() => ProfilerDefines.RemoveDefines("XIV_TweenSystem_DEBUG");
     }
 
