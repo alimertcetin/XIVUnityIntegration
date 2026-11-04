@@ -205,10 +205,11 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<SpriteRendererColorCurveTween>().Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
         }
 
-        public XIVTweenBuilder ScaleBounceOnce()
+        public XIVTweenBuilder ScaleBounceOnce(float intensity = 0.1f)
         {
+            intensity = 1f - Math.Clamp(intensity, 0f, 1f);
             var currScale = component.transform.localScale;
-            return Scale(currScale, currScale * 0.9f, 0.2f, EasingFunction.SmoothStop3, true);
+            return Scale(currScale, currScale * intensity, 0.2f, EasingFunction.SmoothStop3, true);
         }
 
         public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
