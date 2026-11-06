@@ -148,6 +148,13 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<ImageAlphaTween>().Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
+        // CanvasGroup
+        public XIVTweenBuilder CanvasGroupAlpha(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            if (TryGetComponent<CanvasGroup>(out var canvasGroup) == false) ThrowCastError(typeof(CanvasGroup));
+            return AddTween(Get<CanvasGroupAlphaTween>().Set(canvasGroup, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+
         // RectTransform
         public XIVTweenBuilder RectTransformMove(Vector2 from, Vector2 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
