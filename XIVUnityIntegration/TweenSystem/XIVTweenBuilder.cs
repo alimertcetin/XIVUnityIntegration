@@ -73,6 +73,12 @@ namespace XIV.Core.TweenSystem
             return XIVPoolSystem.GetItem<T>();
         }
 
+        TTween GetTween<TComponent, TTween>(out TComponent comp) where TTween : ITween where TComponent : Component
+        {
+            if (TryGetComponent(out comp) == false) ThrowCastError(typeof(TComponent));
+            return Get<TTween>();
+        }
+
         void Initialize(Component component)
         {
             this.component = component;

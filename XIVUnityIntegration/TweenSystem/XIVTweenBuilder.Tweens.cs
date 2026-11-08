@@ -39,6 +39,7 @@ namespace XIV.Core.TweenSystem
         }
 
         // Transform
+        // Scale
         public XIVTweenBuilder Scale(Vector3 from, Vector3 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
             return AddTween(Get<ScaleTween>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
@@ -64,6 +65,7 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<ScaleTweenZ>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
+        // Position
         public XIVTweenBuilder Move(Vector3 from, Vector3 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
             return AddTween(Get<MoveTween>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
@@ -84,6 +86,16 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<MoveTweenZ>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
+        public XIVTweenBuilder FollowCurve(XIVMemory<Vector3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(Get<FollowCurveTween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        public XIVTweenBuilder FollowCurve(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(Get<FollowCurveVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
+        }
+
         /// <summary>
         /// Moves GameObject in world space but calculates the position on screen space
         /// </summary>
@@ -94,6 +106,7 @@ namespace XIV.Core.TweenSystem
             return AddTween(followCurve.Set(component.transform, screenSpacePoints, duration, easingFunc, isPingPong, loopCount));
         }
 
+        // Rotation
         public XIVTweenBuilder Rotate(Quaternion from, Quaternion to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
             return AddTween(Get<RotationTween>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
@@ -114,121 +127,99 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<RotationTweenZ>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
-        public XIVTweenBuilder FollowCurve(XIVMemory<Vector3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
-        {
-            return AddTween(Get<FollowCurveTween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
-        }
-
-        public XIVTweenBuilder FollowCurve(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
-        {
-            return AddTween(Get<FollowCurveVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
-        }
-
-        public XIVTweenBuilder FollowCurveAndRotation(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
-        {
-            return AddTween(Get<FollowCurveAndRotationVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
-        }
-
         // Image
         public XIVTweenBuilder ImageFill(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<Image>(out var image) == false) ThrowCastError(typeof(Image));
-            return AddTween(Get<ImageFillTween>().Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<Image, ImageFillTween>(out var image).Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
         public XIVTweenBuilder ImageColor(Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<Image>(out var image) == false) ThrowCastError(typeof(Image));
-            return AddTween(Get<ImageColorTween>().Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<Image, ImageColorTween>(out var image).Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
         public XIVTweenBuilder ImageAlpha(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<Image>(out var image) == false) ThrowCastError(typeof(Image));
-            return AddTween(Get<ImageAlphaTween>().Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<Image, ImageAlphaTween>(out var image).Set(image, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        public XIVTweenBuilder ImageColorCurve(XIVMemory<Color> colors, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(GetTween<Image, ImageColorCurveTween>(out var image).Set(image, colors, duration, easingFunc, isPingPong, loopCount));
         }
 
         // CanvasGroup
         public XIVTweenBuilder CanvasGroupAlpha(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<CanvasGroup>(out var canvasGroup) == false) ThrowCastError(typeof(CanvasGroup));
-            return AddTween(Get<CanvasGroupAlphaTween>().Set(canvasGroup, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<CanvasGroup, CanvasGroupAlphaTween>(out var canvasGroup).Set(canvasGroup, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
         // RectTransform
         public XIVTweenBuilder RectTransformMove(Vector2 from, Vector2 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
-            return AddTween(Get<RectTransformMoveTween>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<RectTransform, RectTransformMoveTween>(out var rectTransform).Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
         
         public XIVTweenBuilder RectTransformLocalMove(Vector3 from, Vector3 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
-            return AddTween(Get<RectTransformLocalMoveTween>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<RectTransform, RectTransformLocalMoveTween>(out var rectTransform).Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
         
         public XIVTweenBuilder RectTransformSizeDelta(Vector2 from, Vector2 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
-            return AddTween(Get<RectTransformSizeDelta>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<RectTransform, RectTransformSizeDelta>(out var rectTransform).Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
         
         public XIVTweenBuilder RectTransformAnchoredPosition3D(Vector3 from, Vector3 to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<RectTransform>(out var rectTransform) == false) ThrowCastError(typeof(RectTransform));
-            return AddTween(Get<RectTransformAnchoredPosition3D>().Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
-        }
-
-        public XIVTweenBuilder ImageColorCurve(XIVMemory<Color> colors, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
-        {
-            if (TryGetComponent<Image>(out var image) == false) ThrowCastError(typeof(Image));
-            return AddTween(Get<ImageColorCurveTween>().Set(image, colors, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<RectTransform, RectTransformAnchoredPosition3D>(out var rectTransform).Set(rectTransform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
         // Renderer
         public XIVTweenBuilder RendererColor(Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<Renderer>(out var renderer) == false) ThrowCastError(typeof(Renderer));
-            return AddTween(Get<RendererColorTween>().Set(renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<Renderer, RendererColorTween>(out var renderer).Set(renderer, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
         public XIVTweenBuilder RendererColorCurve(XIVMemory<Color> colors, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<Renderer>(out var renderer) == false) ThrowCastError(typeof(Renderer));
-            return AddTween(Get<RendererColorCurveTween>().Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<Renderer, RendererColorCurveTween>(out var renderer).Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
         }
 
-        // Renderer
+        // Sprite Renderer
         public XIVTweenBuilder SpriteRendererColor(Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<SpriteRenderer>(out var renderer) == false) ThrowCastError(typeof(SpriteRenderer));
-            return AddTween(Get<SpriteRendererColorTween>().Set(renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<SpriteRenderer, SpriteRendererColorTween>(out var renderer).Set(renderer, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
         public XIVTweenBuilder SpriteRendererColorCurve(XIVMemory<Color> colors, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            if (TryGetComponent<SpriteRenderer>(out var renderer) == false) ThrowCastError(typeof(SpriteRenderer));
-            return AddTween(Get<SpriteRendererColorCurveTween>().Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(GetTween<SpriteRenderer, SpriteRendererColorCurveTween>(out var renderer).Set(renderer, colors, duration, easingFunc, isPingPong, loopCount));
         }
 
+        // Material Property Block
+        public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(GetTween<Renderer, MaterialPropertyBlockColorTween>(out var renderer).Set(mpb, propId, renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(GetTween<Renderer, MaterialPropertyBlockFloatTween>(out var renderer).Set(mpb, propId, renderer, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        // Combined
+        public XIVTweenBuilder FollowCurveAndRotation(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(Get<FollowCurveAndRotationVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
+        }
+
+        // Presets
         public XIVTweenBuilder ScaleBounceOnce(float intensity = 0.1f)
         {
             intensity = 1f - Math.Clamp(intensity, 0f, 1f);
             var currScale = component.transform.localScale;
             return Scale(currScale, currScale * intensity, 0.2f, EasingFunction.SmoothStop3, true);
-        }
-
-        public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, Color from, Color to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
-        {
-            if (TryGetComponent<Renderer>(out var renderer) == false) ThrowCastError(typeof(Renderer));
-            return AddTween(Get<MaterialPropertyBlockColorTween>().Set(mpb, propId, renderer, from, to, duration, easingFunc, isPingPong, loopCount));
-        }
-
-        public XIVTweenBuilder Mpb(MaterialPropertyBlock mpb, int propId, float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
-        {
-            if (TryGetComponent<Renderer>(out var renderer) == false) ThrowCastError(typeof(Renderer));
-            return AddTween(Get<MaterialPropertyBlockFloatTween>().Set(mpb, propId, renderer, from, to, duration, easingFunc, isPingPong, loopCount));
         }
     }
 }
