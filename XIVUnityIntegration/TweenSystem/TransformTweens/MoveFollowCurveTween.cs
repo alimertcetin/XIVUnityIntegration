@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using XIV.Core.TweenSystem.Drivers;
 using XIV.Core.XIVMath;
 using XIV.UnityIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem.TransformTweens
 {
-    internal sealed class FollowCurveTween : CurveTweenDriver<Vector3, Transform>
+    internal sealed class MoveFollowCurveTween : CurveTweenDriver<Vector3, Transform>
     {
         protected override void OnUpdate(float easedTime)
         {

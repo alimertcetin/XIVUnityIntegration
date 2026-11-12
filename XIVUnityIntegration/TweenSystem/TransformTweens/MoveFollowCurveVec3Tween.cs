@@ -6,7 +6,7 @@ using XIV.UnityIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem.TransformTweens
 {
-    internal sealed class FollowCurveVec3Tween : CurveTweenDriver<Vec3, Transform>
+    internal sealed class MoveFollowCurveVec3Tween : CurveTweenDriver<Vec3, Transform>
     {
         protected override void OnUpdate(float easedTime)
         {

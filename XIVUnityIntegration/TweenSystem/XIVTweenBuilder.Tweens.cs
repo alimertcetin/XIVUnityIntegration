@@ -102,14 +102,14 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<MoveTweenZ>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
         }
 
-        public XIVTweenBuilder FollowCurve(XIVMemory<Vector3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        public XIVTweenBuilder MoveFollowCurve(XIVMemory<Vector3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            return AddTween(Get<FollowCurveTween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(Get<MoveFollowCurveTween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
         }
 
-        public XIVTweenBuilder FollowCurve(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        public XIVTweenBuilder MoveFollowCurve(XIVMemory<Vec3> points, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
-            return AddTween(Get<FollowCurveVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
+            return AddTween(Get<MoveFollowCurveVec3Tween>().Set(component.transform, points, duration, easingFunc, isPingPong, loopCount));
         }
 
         /// <summary>
