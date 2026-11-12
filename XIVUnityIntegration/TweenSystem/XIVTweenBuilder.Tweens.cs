@@ -245,5 +245,36 @@ namespace XIV.Core.TweenSystem
             var currScale = component.transform.localScale;
             return Scale(currScale, currScale * intensity, 0.2f, EasingFunction.SmoothStop3, true);
         }
+        
+        /// <summary>
+        /// Pre-defined values will give you a light shake
+        /// </summary>
+        public XIVTweenBuilder Shake(float rotationIntensity = 0.2f, float positionIntensity = 0.25f, float duration = 0.25f, int loopCount = 0)
+        {
+            var componentTransform = component.transform;
+            var pos = componentTransform.position.ToVec3();
+            var rot = componentTransform.rotation.eulerAngles.ToVec3();
+            
+            var arc = ArrayUtils.GetBuffer<Vec3>(4);
+            var rotation =  ArrayUtils.GetBuffer<Vec3>(4);
+            arc[0] = pos;
+            arc[1] = pos + (Vec3.left + XIVRandom.insideUnitSphere) * positionIntensity;
+            arc[2] = pos + (Vec3.right + XIVRandom.insideUnitSphere) * positionIntensity;
+            arc[3] = pos;
+
+            rotation[0] = rot;
+            rotation[1] = rot + XIVRandom.insideUnitSphere * rotationIntensity;
+            rotation[2] = rot + XIVRandom.insideUnitSphere * rotationIntensity;
+            rotation[3] = rot;
+
+            return MoveFollowCurve(arc.AsXIVMemory(4), duration, EasingFunction.SmoothStart3, true, loopCount)
+                .And()
+                .RotateFollowCurve(rotation.AsXIVMemory(4), duration, EasingFunction.SmoothStart3, loopCount: loopCount)
+                .Finally((_) =>
+                {
+                    ((IDisposable)arc).Dispose();
+                    ((IDisposable)rotation).Dispose();
+                });
+        }
     }
 }
