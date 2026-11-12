@@ -8,6 +8,9 @@ using XIV.Core.TweenSystem.RendererTweens;
 using XIV.Core.TweenSystem.TransformTweens;
 using XIV.Core.Utils;
 using XIV.Core.DataStructures;
+using XIV.Core.Extensions;
+using XIV.Core.XIVMath;
+using XIV.UnityIntegration.Extensions;
 
 namespace XIV.Core.TweenSystem
 {
@@ -141,6 +144,11 @@ namespace XIV.Core.TweenSystem
         public XIVTweenBuilder RotateZ(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
             return AddTween(Get<RotationTweenZ>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
+        }
+        
+        public XIVTweenBuilder RotateFollowCurve(XIVMemory<Vec3> eulerRotations, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(Get<RotationFollowCurveTween>().Set(component.transform, eulerRotations, eulerRotations.reversed, duration, easingFunc, isPingPong, loopCount));
         }
 
         // Image
