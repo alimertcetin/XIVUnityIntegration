@@ -24,5 +24,15 @@ namespace XIV.UnityIntegration.Extensions
         {
             return new Vec4(v.r, v.g, v.b, v.a);
         }
+
+        public static Vec4 ToVec4(this Quaternion v)
+        {
+            return new Vec4(v.x, v.y, v.z, v.w);
+        }
+
+        public static Quaternion ToQuaternion(this Vec4 v)
+        {
+            return new Quaternion(v.x, v.y, v.z, v.w);
+        }
     }
 }
