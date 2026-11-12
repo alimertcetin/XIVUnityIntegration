@@ -23,6 +23,14 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<OnCanceledCallbackTween>().Set(action));
         }
 
+        /// <summary>
+        /// Provided action will be invoked whenever the tween completed/canceled
+        /// </summary>
+        public XIVTweenBuilder Finally(Action action)
+        {
+            return AddTween(Get<OnFinallyCallbackTween>().Set(action));
+        }
+
         public XIVTweenBuilder OnComplete(Action<GameObject> action)
         {
             return AddTween(Get<OnCompleteCallbackTween<GameObject>>().Set(action, component.gameObject));
@@ -31,6 +39,14 @@ namespace XIV.Core.TweenSystem
         public XIVTweenBuilder OnCanceled(Action<GameObject> action)
         {
             return AddTween(Get<OnCanceledCallbackTween<GameObject>>().Set(action, component.gameObject));
+        }
+
+        /// <summary>
+        /// <inheritdoc cref="Finally(Action)"/>
+        /// </summary>
+        public XIVTweenBuilder Finally(Action<GameObject> action)
+        {
+            return AddTween(Get<OnFinallyCallbackTween<GameObject>>().Set(action, component.gameObject));
         }
 
         public XIVTweenBuilder Wait(float duration)
