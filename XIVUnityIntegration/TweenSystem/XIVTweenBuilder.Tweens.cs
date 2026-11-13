@@ -69,6 +69,11 @@ namespace XIV.Core.TweenSystem
             return AddTween(Get<ScaleCurveTween>().Set(component.transform, scales, duration, easingFunc, isPingPong, loopCount));
         }
 
+        public XIVTweenBuilder ScaleCurve(XIVMemory<Vec3> scales, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
+        {
+            return AddTween(Get<ScaleCurveVec3Tween>().Set(component.transform, scales, duration, easingFunc, isPingPong, loopCount));
+        }
+
         public XIVTweenBuilder ScaleX(float from, float to, float duration, EasingFunction.Function easingFunc, bool isPingPong = false, int loopCount = 0)
         {
             return AddTween(Get<ScaleTweenX>().Set(component.transform, from, to, duration, easingFunc, isPingPong, loopCount));
